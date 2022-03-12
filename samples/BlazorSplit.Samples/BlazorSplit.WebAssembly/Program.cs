@@ -1,3 +1,4 @@
+using BlazorSplit;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BlazorSplit.WebAssembly;
@@ -10,5 +11,7 @@ builder.Services.AddScoped(sp => new HttpClient
 {
     BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
 });
+
+builder.Services.AddScoped<SplitInterop>();
 
 await builder.Build().RunAsync();

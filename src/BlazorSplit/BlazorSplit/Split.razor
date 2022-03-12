@@ -1,0 +1,65 @@
+﻿<div class="split-container">
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; }
+    
+    [Parameter]
+    public List<int>? Sizes { get; set; }
+    
+    [Parameter]
+    public List<double>? MinSize { get; set; }
+    
+    [Parameter]
+    public List<double>? MaxSize { get; set; }
+
+    [Inject]
+    public SplitInterop SplitInterop { get; set; }
+
+    private readonly List<ElementReference> _splitSections = new();
+
+    private SplitInstance? _instance;
+    
+    // Used to ensure we're only ever able to create a single instance despite multi-threaded rendering
+    private readonly SemaphoreSlim _createInstanceLock = new(1, 1);
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await CreateInstance();
+    }
+
+    public void RegisterSection(ElementReference section)
+    {
+        _splitSections.Add(section);
+        StateHasChanged();
+    }
+
+    public void UnregisterSection(ElementReference section)
+    {
+        _splitSections.Remove(section);
+        StateHasChanged();
+    }
+
+    private async Task CreateInstance()
+    {
+        await _createInstanceLock.WaitAsync();
+
+        try
+        {
+            if (_instance != null)
+                await _instance.Destroy();
+            
+            if (_splitSections.Count > 0)
+                _instance = await SplitInterop.CreateInstance(_splitSections);
+        }
+        finally
+        {
+            _createInstanceLock.Release();
+        }
+    }
+
+}

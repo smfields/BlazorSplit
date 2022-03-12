@@ -1,0 +1,36 @@
+﻿@implements IDisposable
+
+<div class="split-section" @ref="_element">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; }
+    
+    [CascadingParameter] 
+    public Split Parent { get; set; }
+
+    private ElementReference _element;
+
+    protected override void OnInitialized()
+    {
+        if (Parent == null)
+            throw new ArgumentNullException(nameof(Parent), "SplitSection must exist within a Split");
+        base.OnInitialized();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender)
+            Parent.RegisterSection(_element);
+        
+        base.OnAfterRender(firstRender);
+    }
+
+    public void Dispose()
+    {
+        Parent.UnregisterSection(_element);
+    }
+
+}
