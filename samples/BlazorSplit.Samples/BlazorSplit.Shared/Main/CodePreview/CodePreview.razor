@@ -1,0 +1,62 @@
+﻿@using BlazorSplit.OptionTypes
+<section aria-labelledby="section-2-title">
+    <h2 class="sr-only" id="section-1-title">Generated Code</h2>
+    <div class="rounded-lg bg-white overflow-hidden shadow p-4 markdown">
+        @* <BlazorTypeSelector Form="_form"/> *@
+        <GeneratedRazor Configuration="new PreviewConfiguration(){Columns = 2, Direction = Direction.Horizontal}"/>
+        <h3 class="text-lg font-medium mb-2 mt-4">CSS</h3>
+        <div class="relative markdown group">
+            <button type="button" class="absolute opacity-0 group-hover:opacity-100 top-1.5 right-1.5 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="-ml-1 mr-3 h-5 w-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg> Copy
+            </button>
+            <code style="display: none;">
+                .split {
+                display: flex;
+                flex-direction: row;
+                }
+
+                .gutter {
+                background-color: #eee;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                }
+
+                .gutter.gutter-horizontal {
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+                cursor: col-resize;
+                }
+            </code>
+            <pre class="  language-css"><code class=" language-css"><span class="token selector">.split</span> <span class="token punctuation">{</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+    <span class="token property">flex-direction</span><span class="token punctuation">:</span> row<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.gutter</span> <span class="token punctuation">{</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> #eee<span class="token punctuation">;</span>
+    <span class="token property">background-repeat</span><span class="token punctuation">:</span> no-repeat<span class="token punctuation">;</span>
+    <span class="token property">background-position</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.gutter.gutter-horizontal</span> <span class="token punctuation">{</span>
+    <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg=='</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+    <span class="token property">cursor</span><span class="token punctuation">:</span> col-resize<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+        </div>
+    </div>
+</section>
+
+@code {
+
+    private FormModel _form = new()
+    {
+        BlazorType = "Server"
+    };
+
+    public class FormModel
+    {
+        public string BlazorType { get; set; }
+    }
+
+}

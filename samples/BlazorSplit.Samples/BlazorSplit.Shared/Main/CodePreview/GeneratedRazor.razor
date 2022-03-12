@@ -1,0 +1,67 @@
+﻿@using System.Text
+@using BlazorSplit.OptionTypes
+<CodeBlock Title="Razor" Language="razor">@GenerateCode()</CodeBlock>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public PreviewConfiguration Configuration { get; set; }
+
+    public string GenerateCode()
+    {
+        StringBuilder codeBuilder = new StringBuilder();
+
+        AppendUsingSection(codeBuilder);
+        AppendSplitOpen(codeBuilder);
+
+        for (int col = 0; col < Configuration.Columns; col++)
+        {
+            AppendColumn(codeBuilder);
+        }
+
+        AppendSplitClose(codeBuilder);
+        return codeBuilder.ToString();
+    }
+
+    private void AppendUsingSection(StringBuilder codeBuilder)
+    {
+        codeBuilder.Append("@using BlazorSplit\n\n");
+    }
+
+    private void AppendSplitOpen(StringBuilder codeBuilder)
+    {
+        codeBuilder.Append("<Split");
+        AppendSettings(codeBuilder);
+        codeBuilder.Append(">\n");
+    }
+
+    private void AppendSplitClose(StringBuilder codeBuilder)
+    {
+        codeBuilder.Append("</Split>");
+    }
+
+    private void AppendColumn(StringBuilder codeBuilder)
+    {
+        codeBuilder.Append("\t<SplitSection></SplitSection>\n");
+    }
+
+    private void AppendSettings(StringBuilder codeBuilder)
+    {
+        StringBuilder settingsBuilder = new StringBuilder();
+        AppendDirection(settingsBuilder);
+        if (settingsBuilder.Length > 0)
+        {
+            settingsBuilder.Append("\n");
+            codeBuilder.Append(settingsBuilder.ToString());
+        }
+    }
+
+    private void AppendDirection(StringBuilder settingsBuilder)
+    {
+        if (Configuration.Direction == Direction.Vertical)
+        {
+            settingsBuilder.Append("\n\tDirection=\"Direction.Vertical\"");
+        }
+    }
+
+}
