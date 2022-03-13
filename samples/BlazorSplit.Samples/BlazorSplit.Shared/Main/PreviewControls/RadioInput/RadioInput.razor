@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@typeparam TValue
+
+<div>
+    <label for="company_website" class="block text-sm font-medium text-gray-700 mb-1">@Label</label>
+    <div class="bg-white rounded-md -space-x-px flex">
+        <InputRadioGroup @bind-Value="BoundValue">
+            @foreach(var option in Options)
+            {
+                <label selected="@(Value.Equals(option))" class="relative border flex cursor-pointer w-full z-10 p-3">
+                    <InputRadio Value="option" class="h-4 w-4 mt-0.5 cursor-pointer text-indigo-600 border-gray-300 focus:ring-indigo-500" aria-labelledby="mode-1-label" aria-describedby="mode-1-description"/>
+                    <div class="ml-3 flex flex-col">
+                        <span id="mode-1-label" class="block text-sm font-medium text-gray-900">@option</span>
+                    </div>
+                </label>
+            }
+        </InputRadioGroup>
+    </div>
+</div>
+
+@code
+{
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter]
+    public IEnumerable<TValue> Options { get; set; }
+
+    [Parameter]
+    public TValue Value { get; set; }
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+    
+    public TValue BoundValue
+    {
+        get => Value;
+        set => ValueChanged.InvokeAsync(value);
+    }
+
+}

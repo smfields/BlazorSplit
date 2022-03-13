@@ -1,0 +1,71 @@
+﻿@using BlazorSplit.Shared.Main.PreviewControls.NumberInput
+@using BlazorSplit.Shared.Main.PreviewControls.RadioInput
+@using Microsoft.AspNetCore.Components.Forms
+@using BlazorSplit.OptionTypes
+
+<EditForm class="grid grid-cols-1 gap-4" Model="Configuration">
+    <section aria-labelledby="section-2-title">
+        <h2 class="sr-only" id="section-2-title">Options</h2>
+        <div class="rounded-lg bg-white overflow-hidden shadow">
+            <div class="p-6 space-y-4">
+                <RadioInput 
+                    Label="Direction"
+                    Options="@(Enum.GetValues<Direction>())"
+                    @bind-Value="Configuration.Direction"
+                />
+                <NumberInput
+                    Label="Columns"
+                    MinValue="2"
+                    MaxValue="10"
+                    @bind-Value="Configuration.Columns"
+                /> 
+                <NumberInput
+                    Label="Minimum Size"
+                    MinValue="0"
+                    MaxValue="300"
+                    Interval="50"
+                    @bind-Value="Configuration.MinimumSize"
+                />
+                <NumberInput
+                    Label="Maximum Size"
+                    MinValue="0"
+                    MaxValue="1000"
+                    Interval="50"
+                    @bind-Value="Configuration.MaximumSize"
+                />
+                <NumberInput
+                    Label="Gutter Size"
+                    MinValue="1"
+                    MaxValue="50"
+                    @bind-Value="Configuration.GutterSize"
+                />
+                <RadioInput 
+                    Label="Gutter Alignment"
+                    Options="@(Enum.GetValues<GutterAlign>())"
+                    @bind-Value="Configuration.GutterAlignment"
+                />
+                <NumberInput
+                    Label="Snap Offset"
+                    MinValue="0"
+                    MaxValue="100"
+                    Interval="10"
+                    @bind-Value="Configuration.SnapOffset"
+                />
+                <NumberInput
+                    Label="Drag Interval"
+                    MinValue="1"
+                    MaxValue="20"
+                    @bind-Value="Configuration.DragInterval"
+                />
+            </div>
+        </div>
+        <GithubDocs />
+    </section>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public PreviewConfiguration Configuration { get; set; }
+
+}

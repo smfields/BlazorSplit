@@ -12,12 +12,12 @@ public enum GutterAlign
     Start,
     
     /// <summary>
-    /// Shrinks the second element to fit the gutter
-    /// </summary>
-    End,
-    
-    /// <summary>
     /// Shrinks both elements by the same amount so the gutter sits between
     /// </summary>
-    Center
+    Center,
+    
+    /// <summary>
+    /// Shrinks the second element to fit the gutter
+    /// </summary>
+    End
 }

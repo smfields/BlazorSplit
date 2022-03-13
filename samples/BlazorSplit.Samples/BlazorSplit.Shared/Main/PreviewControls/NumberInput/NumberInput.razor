@@ -1,0 +1,67 @@
+﻿<div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">@Label</label>
+    <div class="bg-white rounded-md -space-x-px flex">
+        <DecrementButton Clicked="@DecrementValue"/>
+        <input 
+            type="text" 
+            class="focus:ring-indigo-500 focus:border-indigo-500 focus:z-20 text-center border-gray-300 w-full px-3"
+            value="@Value"
+            @onchange="@OnManualInput"
+        >
+        <IncrementButton Clicked="@IncrementValue"/>
+    </div>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter]
+    public int MinValue { get; set; } = int.MinValue;
+
+    [Parameter]
+    public int MaxValue { get; set; } = int.MaxValue;
+
+    [Parameter]
+    public int Interval { get; set; } = 1;
+
+    [Parameter]
+    public int Value { get; set; }
+    
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+    public async Task IncrementValue()
+    {
+        await SetValue(Value + Interval);
+    }
+    
+    public async Task DecrementValue()
+    {
+        await SetValue(Value - Interval);
+    }
+
+    public async Task OnManualInput(ChangeEventArgs e)
+    {
+        if (e.Value is null or "")
+        {
+            await SetValue(0);
+        }
+        else if (int.TryParse(e.Value?.ToString(), out int value))
+        {
+            await SetValue(value);
+        }
+    }
+
+    public async Task SetValue(int value)
+    {
+        if (value > MaxValue)
+            await ValueChanged.InvokeAsync(MaxValue);
+        else if (value < MinValue)
+            await ValueChanged.InvokeAsync(MinValue);
+        else
+            await ValueChanged.InvokeAsync(value);
+    }
+
+}
