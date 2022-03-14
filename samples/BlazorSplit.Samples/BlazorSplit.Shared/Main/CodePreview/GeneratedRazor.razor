@@ -1,11 +1,25 @@
 ﻿@using System.Text
 @using BlazorSplit.OptionTypes
-<CodeBlock Title="Razor" Language="razor">@GenerateCode()</CodeBlock>
+@using System.ComponentModel
+
+<div @onclick="StateHasChanged">
+    <CodeBlock Title="Razor" Language="razor">@GenerateCode()</CodeBlock>
+</div>
 
 @code {
 
     [Parameter, EditorRequired]
     public PreviewConfiguration Configuration { get; set; }
+
+    protected override void OnInitialized()
+    {
+        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            StateHasChanged();
+        }
+
+        Configuration.PropertyChanged += OnPropertyChanged;
+    }
 
     public string GenerateCode()
     {
@@ -49,12 +63,65 @@
     {
         StringBuilder settingsBuilder = new StringBuilder();
         AppendDirection(settingsBuilder);
+        AppendMinSize(settingsBuilder);
+        AppendMaxSize(settingsBuilder);
+        AppendGutterSize(settingsBuilder);
+        AppendGutterAlignment(settingsBuilder);
+        AppendSnapOffset(settingsBuilder);
+        AppendDragInterval(settingsBuilder);
         if (settingsBuilder.Length > 0)
         {
             settingsBuilder.Append("\n");
             codeBuilder.Append(settingsBuilder.ToString());
         }
     }
+
+    private void AppendDragInterval(StringBuilder settingsBuilder)
+    {
+        if (Configuration.DragInterval != 1)
+        {
+            settingsBuilder.Append($"\n\tDragInterval=\"{Configuration.DragInterval}\"");
+        }
+    }
+
+    private void AppendSnapOffset(StringBuilder settingsBuilder)
+    {
+        if (Configuration.SnapOffset != 30)
+        {
+            settingsBuilder.Append($"\n\tSnapOffset=\"{Configuration.SnapOffset}\"");
+        }
+    }
+
+    private void AppendGutterAlignment(StringBuilder settingsBuilder)
+    {
+        if (Configuration.GutterAlignment != GutterAlign.Center)
+        {
+            settingsBuilder.Append($"\n\tGutterAlign=\"{Configuration.GutterAlignment}\"");
+        }
+    }
+
+    private void AppendGutterSize(StringBuilder settingsBuilder)
+    {
+        if (Configuration.GutterSize != 10)
+        {
+            settingsBuilder.Append($"\n\tGutterSize=\"{Configuration.GutterSize}\"");
+        }
+    }
+
+    private void AppendMaxSize(StringBuilder settingsBuilder)
+    {
+        if (Configuration.MaximumSize != 1000)
+        {
+            settingsBuilder.Append($"\n\tMaxSize=\"{Configuration.MaximumSize}\"");
+        }
+    }
+
+    private void AppendMinSize(StringBuilder settingsBuilder)
+    {
+        if (Configuration.MinimumSize != 100)
+        {
+            settingsBuilder.Append($"\n\tMinSize=\"{Configuration.MinimumSize}\"");
+        }    }
 
     private void AppendDirection(StringBuilder settingsBuilder)
     {

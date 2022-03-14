@@ -1,10 +1,16 @@
 ﻿@using Microsoft.JSInterop
+@implements IAsyncDisposable
+
 <h3 class="text-lg font-medium mb-2">@Title</h3>
+@if (ChildContent != null)
+{
+    <div style="display: none;" @ref="ContentElement">
+        @ChildContent
+    </div>
+}
 <div class="relative markdown group">
     <pre>
-        <code class=@("language-" + Language)>
-            @ChildContent
-        </code>
+        <code class=@("language-" + Language) @ref="_previewElement"></code>
     </pre>
 </div>
 
@@ -16,14 +22,47 @@
     public string Language { get; set; }
     
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment? ChildContent { get; set; }
+    
+    [Parameter]
+    public ElementReference ContentElement { get; set; }
 
     [Inject]
     public IJSRuntime JsRuntime { get; set; }
+    
+    private IJSObjectReference? _module;
+    private ElementReference _previewElement;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JsRuntime.InvokeVoidAsync("Prism.highlightAll");
+        if (firstRender)
+        {
+            _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazorSplit.Shared/Main/CodePreview/CodeBlock.razor.js");
+        }
+        
+        await GenerateContent();
+    }
+
+    private async Task GenerateContent()
+    {
+        if (_module != null)
+        {
+            await _module.InvokeVoidAsync("generateContent", ContentElement, _previewElement, Language);
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+        {
+            try
+            {
+                await _module.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
     }
 
 }

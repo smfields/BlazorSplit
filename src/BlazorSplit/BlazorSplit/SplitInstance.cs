@@ -18,6 +18,13 @@ public class SplitInstance : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        await Destroy();
+        try
+        {
+            await Destroy();
+        }
+        catch (JSDisconnectedException e)
+        {
+            // Silently ignore since we don't need to dispose if we've been disconnected
+        }
     }
 }
