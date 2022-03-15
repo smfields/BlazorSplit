@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageVersion>0.0.1</PackageVersion>
+    <PackageVersion>0.0.2</PackageVersion>
     <Authors>Sam Fields</Authors>
     <Description>Blazor wrapper for the Split.js library</Description>
     <PackageProjectUrl>blazor-split.smfields.net</PackageProjectUrl>
