@@ -6,6 +6,11 @@ namespace BlazorSplit.OptionTypes;
 [JsonConverter(typeof(NumberOrArrayJsonConverter))]
 public class NumberOrArray : SingleOrArray<Number>
 {
+    public NumberOrArray(params Number[] values) : base(values)
+    {
+        
+    }
+    
     public NumberOrArray(IEnumerable<Number> values) : base(values)
     {
     }

@@ -58,7 +58,7 @@ public class SplitOptions
     /// Initial sizes of each element in percents or CSS values.
     /// </summary>
     [JsonPropertyName("sizes")]
-    public NumberOrArray? Sizes { get; init; }
+    public IEnumerable<Number>? Sizes { get; init; }
 
     /// <summary>
     /// Snap to minimum size offset in pixels.
