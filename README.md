@@ -5,7 +5,7 @@
 - Fast: No overhead or attached window event listeners, uses pure CSS for resizing.
 - Unopinionated: Only compute view sizes. Everything else is up to you.
 
-View the documentation [here](https://github.com/smfields/src/BlazorSplit/README.md)
+View the documentation [here](https://github.com/smfields/BlazorSplit/tree/main/src/BlazorSplit#readme)
 
 View the base library documentation [here](https://github.com/nathancahill/split/tree/master/packages/splitjs#readme)
 
