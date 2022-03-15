@@ -1,82 +1,82 @@
 ﻿@using BlazorSplit.OptionTypes
 
-<div 
-    class=@("split-container" + Class)
-    style="@Style"
->
+<div
+    class="@Class"
+    style="@Style">
     <CascadingValue Value="this">
         @ChildContent
     </CascadingValue>
 </div>
 
 @code {
+
     [Parameter, EditorRequired]
     public RenderFragment ChildContent { get; set; }
-    
+
     /// <summary>
     /// Initial sizes of each element in percents or CSS values.
     /// </summary>
-    [Parameter]    
+    [Parameter]
     public NumberOrArray? Sizes { get; init; }
-    
+
     /// <summary>
     /// Minimum size of each element.
     /// </summary>
     [Parameter]
     public NumberOrArray? MinSize { get; init; }
-    
+
     /// <summary>
     /// Maximum size of each element.
     /// </summary>
     [Parameter]
     public NumberOrArray? MaxSize { get; init; }
-    
+
     /// <summary>
     /// When the split is created, if ExpandToMin is true, the minSize for each element overrides the percentage value from the sizes option.
     /// </summary>
     [Parameter]
-    public bool?         ExpandToMin { get; init; }
-    
+    public bool? ExpandToMin { get; init; }
+
     /// <summary>
     /// Gutter size in pixels.
     /// </summary>
     [Parameter]
-    public Number? GutterSize { get; init; } 
-    
+    public Number? GutterSize { get; init; }
+
     /// <summary>
     /// Determines how the gutter aligns between the two elements.
     /// </summary>
     [Parameter]
     public GutterAlign? GutterAlign { get; init; }
-    
+
     /// <summary>
     /// Snap to minimum size offset in pixels.
     /// </summary>
     [Parameter]
     public NumberOrArray? SnapOffset { get; init; }
-    
+
     /// <summary>
     /// Drag this number of pixels at a time. Defaults to 1 for smooth dragging, but can be set to a pixel value to give more control over the resulting sizes.
     /// Works particularly well when the gutterSize is set to the same size.
     /// </summary>
     [Parameter]
     public Number? DragInterval { get; init; }
-    
+
     /// <summary>
     /// Direction to split.
     /// </summary>
     [Parameter]
     public Direction? Direction { get; init; }
-    
+
     /// <summary>
     /// Cursor to display while dragging.
     /// </summary>
     [Parameter]
     public string? Cursor { get; init; }
-    
+
     [Parameter]
     public string? Class { get; set; }
-    
+
     [Parameter]
     public string? Style { get; set; }
 
@@ -86,10 +86,10 @@
     private readonly List<ElementReference> _splitSections = new();
 
     private SplitInstance? _instance;
-    
+
     // Used to ensure we're only ever able to create a single instance despite multi-threaded rendering
     private readonly SemaphoreSlim _createInstanceLock = new(1, 1);
-    
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await CreateInstance();

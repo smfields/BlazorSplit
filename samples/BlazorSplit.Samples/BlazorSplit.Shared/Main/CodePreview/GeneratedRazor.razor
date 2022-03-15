@@ -2,9 +2,7 @@
 @using BlazorSplit.OptionTypes
 @using System.ComponentModel
 
-<div @onclick="StateHasChanged">
-    <CodeBlock Title="Razor" Language="razor">@GenerateCode()</CodeBlock>
-</div>
+<CodeBlock Title="Razor" Language="razor">@GenerateCode()</CodeBlock>
 
 @code {
 
@@ -62,6 +60,7 @@
     private void AppendSettings(StringBuilder codeBuilder)
     {
         StringBuilder settingsBuilder = new StringBuilder();
+        AppendClassName(settingsBuilder);
         AppendDirection(settingsBuilder);
         AppendMinSize(settingsBuilder);
         AppendMaxSize(settingsBuilder);
@@ -74,6 +73,26 @@
             settingsBuilder.Append("\n");
             codeBuilder.Append(settingsBuilder.ToString());
         }
+    }
+
+    private void AppendClassName(StringBuilder settingsBuilder)
+    {
+        settingsBuilder.Append("\n\tClass=\"split");
+
+        if (Configuration.Direction == Direction.Horizontal)
+        {
+            switch (Configuration.HorizontalLayout)
+            {
+                case PreviewConfiguration.CssHorizontalLayout.Flex:
+                    settingsBuilder.Append(" flex");
+                    break;
+                case PreviewConfiguration.CssHorizontalLayout.Float:
+                    settingsBuilder.Append(" float");
+                    break;
+            }
+        }
+
+        settingsBuilder.Append("\"");
     }
 
     private void AppendDragInterval(StringBuilder settingsBuilder)

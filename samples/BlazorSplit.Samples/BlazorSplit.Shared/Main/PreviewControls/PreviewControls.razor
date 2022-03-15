@@ -13,6 +13,14 @@
                     Options="@(Enum.GetValues<Direction>())"
                     @bind-Value="Configuration.Direction"
                 />
+                @if (Configuration.Direction == Direction.Horizontal)
+                {
+                    <RadioInput 
+                        Label="CSS Horizontal Layout"
+                        Options="@(Enum.GetValues<PreviewConfiguration.CssHorizontalLayout>())"
+                        @bind-Value="Configuration.HorizontalLayout"
+                    />
+                }
                 <NumberInput
                     Label="Columns"
                     MinValue="2"
@@ -68,6 +76,4 @@
     [Parameter]
     public PreviewConfiguration Configuration { get; set; }
     
-    public int Value { get; set; }
-
 }

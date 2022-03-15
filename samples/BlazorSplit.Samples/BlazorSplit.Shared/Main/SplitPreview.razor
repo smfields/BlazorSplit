@@ -1,11 +1,13 @@
 ﻿@using System.ComponentModel
+@using System.Text
 @using BlazorSplit.OptionTypes
 <section aria-labelledby="section-1-title">
     <h2 class="sr-only" id="section-1-title">Split.js</h2>
     <div class="rounded-lg bg-white overflow-hidden shadow p-4">
         <div class="border-4 border-dashed border-gray-200 rounded-lg h-64">
             <Split 
-                style="height: 100%; display: flex; flex-direction: row"
+                Class="@GetSplitClass()"
+                Direction="Configuration.Direction"
                 MinSize="Configuration.MinimumSize"
                 MaxSize="Configuration.MaximumSize"
                 GutterSize="Configuration.GutterSize"
@@ -35,6 +37,26 @@
         }
 
         Configuration.PropertyChanged += OnPropertyChanged;
+    }
+
+    private string GetSplitClass()
+    {
+        StringBuilder className = new StringBuilder("split");
+
+        if (Configuration.Direction == Direction.Horizontal)
+        {
+            switch (Configuration.HorizontalLayout)
+            {
+                case PreviewConfiguration.CssHorizontalLayout.Flex:
+                    className.Append(" flex");
+                    break;
+                case PreviewConfiguration.CssHorizontalLayout.Float:
+                    className.Append(" float");
+                    break;
+            }
+        }
+
+        return className.ToString();
     }
 
 }

@@ -6,14 +6,21 @@ namespace BlazorSplit.Shared.Main;
 
 public class PreviewConfiguration : INotifyPropertyChanged
 {
-    private Direction   _direction       = Direction.Horizontal;
-    private int         _columns         = 2;
-    private int         _minimumSize     = 100;
-    private int         _maximumSize     = 1000;
-    private int         _gutterSize      = 10;
-    private GutterAlign _gutterAlignment = GutterAlign.Center;
-    private int         _snapOffset      = 30;
-    private int         _dragInterval    = 1;
+    public enum CssHorizontalLayout
+    {
+        Flex,
+        Float
+    }
+
+    private Direction           _direction        = Direction.Horizontal;
+    private int                 _columns          = 2;
+    private int                 _minimumSize      = 100;
+    private int                 _maximumSize      = 1000;
+    private int                 _gutterSize       = 10;
+    private GutterAlign         _gutterAlignment  = GutterAlign.Center;
+    private int                 _snapOffset       = 30;
+    private int                 _dragInterval     = 1;
+    private CssHorizontalLayout _horizontalLayout = CssHorizontalLayout.Flex;
 
     public Direction Direction
     {
@@ -23,6 +30,18 @@ public class PreviewConfiguration : INotifyPropertyChanged
             if (value == _direction)
                 return;
             _direction = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public CssHorizontalLayout HorizontalLayout
+    {
+        get => _horizontalLayout;
+        set
+        {
+            if (value == _horizontalLayout)
+                return;
+            _horizontalLayout = value;
             OnPropertyChanged();
         }
     }
@@ -112,7 +131,7 @@ public class PreviewConfiguration : INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
-    
+
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

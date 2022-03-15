@@ -1,0 +1,77 @@
+﻿@using System.ComponentModel
+@using System.Text
+@using BlazorSplit.OptionTypes
+
+<CodeBlock Title="CSS" Language="css">@GenerateCode()</CodeBlock>
+
+@code {
+    [Parameter, EditorRequired]
+    public PreviewConfiguration Configuration { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            StateHasChanged();
+        }
+
+        Configuration.PropertyChanged += OnPropertyChanged;
+    }
+    
+    public string GenerateCode()
+    {
+        StringBuilder codeBuilder = new StringBuilder();
+
+        AppendSplitClass(codeBuilder);
+
+        if (Configuration.Direction == Direction.Horizontal)
+        {
+            AppendHorizontalCSS(codeBuilder);
+        }
+        else
+        {
+            AppendVerticalCSS(codeBuilder);
+        }
+
+        AppendGutter(codeBuilder);
+
+        return codeBuilder.ToString();
+    }
+
+    private void AppendGutter(StringBuilder codeBuilder)
+    {
+        codeBuilder.Append("::deep .gutter {\n\tbackground-color: #eee;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 50%;\n}\n\n");
+        
+        if (Configuration.Direction == Direction.Horizontal)
+        {
+            codeBuilder.Append("::deep .gutter.gutter-horizontal {\n\tbackground-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');\n\tcursor: col-resize;\n}\n");
+        }
+        else
+        {
+            codeBuilder.Append("::deep .gutter.gutter-vertical {\n\tbackground-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');\n\tcursor: row-resize;\n}\n");
+        }
+    }
+
+    private void AppendVerticalCSS(StringBuilder codeBuilder)
+    {
+        
+    }
+
+    private void AppendHorizontalCSS(StringBuilder codeBuilder)
+    {
+        switch (Configuration.HorizontalLayout)
+        {
+            case PreviewConfiguration.CssHorizontalLayout.Flex:
+                codeBuilder.Append("::deep .split.flex {\n\tdisplay: flex;\n\tflex-direction: row;\n}\n\n");
+                break;
+            case PreviewConfiguration.CssHorizontalLayout.Float:
+                codeBuilder.Append("::deep .split.float > div {\n\tloat: left;\n\theight: 100%;\n}\n\n");
+                break;
+        }
+    }
+
+    private void AppendSplitClass(StringBuilder codeBuilder)
+    {
+        codeBuilder.Append("::deep .split {\n\theight: 100%;\n}\n\n");
+    }
+}
