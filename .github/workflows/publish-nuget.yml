@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - src/**
+      - .github/workflows/publish-nuget.yml
 
 jobs:
   build:
