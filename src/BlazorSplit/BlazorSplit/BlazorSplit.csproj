@@ -4,6 +4,14 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageVersion>0.0.1</PackageVersion>
+    <Authors>Sam Fields</Authors>
+    <Description>Blazor wrapper for the Split.js library</Description>
+    <PackageProjectUrl>blazor-split.smfields.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/smfields/BlazorSplit</RepositoryUrl>
+    <PackageId>smfields.BlazorSplit</PackageId>
+    <Title>BlazorSplit</Title>
+    <PackageTags>Microsoft;ASP.NET;Core;Blazor;WebAssembly;Split</PackageTags>
   </PropertyGroup>
 
 
