@@ -1,10 +1,14 @@
-name: .NET
+name: Build and Test BlazorSplit
 
 on:
   push:
     branches: [ main ]
+    paths:
+      - src/BlazorSplit/**
   pull_request:
     branches: [ main ]
+    paths:
+      - src/BlazorSplit/**
 
 jobs:
   build:
