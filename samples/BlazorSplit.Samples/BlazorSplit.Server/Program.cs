@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddScoped<SplitInterop>();
+builder.Services.AddBlazorSplit();
 
 
 var app = builder.Build();
