@@ -43,18 +43,18 @@ builder.Services.AddBlazorSplit();
 ```
 | Options        | Type            | Default        | Description                                              |
 | -------------- | --------------- | -------------- | -------------------------------------------------------- |
-| `Sizes`        | Array           |                | Initial sizes of each element in percents or CSS values. |
-| `MinSize`      | Number or Array | `100`          | Minimum size of each element.                            |
-| `MaxSize`      | Number or Array | `Infinity`     | Maximum size of each element.                            |
-| `ExpandToMin`  | Boolean         | `false`        | Grow initial sizes to `minSize`                          |
+| `Sizes`        | Number[]        |                | Initial sizes of each element in percents or CSS values. |
+| `MinSize`      | NumberOrArray   | `100`          | Minimum size of each element.                            |
+| `MaxSize`      | NumberOrArray   | `Infinity`     | Maximum size of each element.                            |
+| `ExpandToMin`  | bool            | `false`        | Grow initial sizes to `minSize`                          |
 | `GutterSize`   | Number          | `10`           | Gutter size in pixels.                                   |
-| `GutterAlign`  | String          | `'center'`     | Gutter alignment between elements.                       |
+| `GutterAlign`  | string          | `'Center'`     | Gutter alignment between elements.                       |
 | `SnapOffset`   | Number          | `30`           | Snap to minimum size offset in pixels.                   |
 | `DragInterval` | Number          | `1`            | Number of pixels to drag.                                |
-| `Direction`    | String          | `'horizontal'` | Direction to split: horizontal or vertical.              |
-| `Cursor`       | String          | `'col-resize'` | Cursor to display while dragging.                        |
-| `Class`        | String          |                | CSS class name for the container element.                |
-| `Style`        | String          |                | CSS styles applied to the container element.             |
+| `Direction`    | string          | `'Horizontal'` | Direction to split: horizontal or vertical.              |
+| `Cursor`       | string          | `'col-resize'` | Cursor to display while dragging.                        |
+| `Class`        | string          |                | CSS class name for the container element.                |
+| `Style`        | string          |                | CSS styles applied to the container element.             |
 
 ## Important Note
 Split.js does not set CSS beyond the minimum needed to manage the width or height of the elements.
