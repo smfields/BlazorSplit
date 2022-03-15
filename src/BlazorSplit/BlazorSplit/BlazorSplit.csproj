@@ -1,26 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <PackageVersion>0.0.2</PackageVersion>
-    <Authors>Sam Fields</Authors>
-    <Description>Blazor wrapper for the Split.js library</Description>
-    <PackageProjectUrl>blazor-split.smfields.net</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/smfields/BlazorSplit</RepositoryUrl>
-    <PackageId>smfields.BlazorSplit</PackageId>
-    <Title>BlazorSplit</Title>
-    <PackageTags>Microsoft;ASP.NET;Core;Blazor;WebAssembly;Split</PackageTags>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <PackageVersion>0.0.3</PackageVersion>
+        <Authors>Sam Fields</Authors>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Description>Blazor wrapper for the Split.js library</Description>
+        <PackageProjectUrl>blazor-split.smfields.net</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/smfields/BlazorSplit</RepositoryUrl>
+        <PackageId>smfields.BlazorSplit</PackageId>
+        <Title>BlazorSplit</Title>
+        <PackageTags>Microsoft;ASP.NET;Core;Blazor;WebAssembly;Split</PackageTags>
+        <Copyright>2022 Sam Fields</Copyright>
+        <PackageLicenseUrl>https://github.com/smfields/BlazorSplit/blob/main/LICENSE</PackageLicenseUrl>
+    </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
+    <ItemGroup>
+        <SupportedPlatform Include="browser"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2"/>
+    </ItemGroup>
 
 </Project>
