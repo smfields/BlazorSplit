@@ -9,5 +9,7 @@ View the documentation [here](https://github.com/smfields/BlazorSplit/tree/main/
 
 View the base library documentation [here](https://github.com/nathancahill/split/tree/master/packages/splitjs#readme)
 
+View a demo [here](https://blazor-split.smfields.net)
+
 ## Credits
 This project is simply a port of an existing JavaScript library. It would not exist without the hard work of those that contribute to the base Split.js library.
