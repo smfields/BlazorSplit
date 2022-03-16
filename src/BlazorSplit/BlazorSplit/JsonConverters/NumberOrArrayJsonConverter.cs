@@ -6,7 +6,7 @@ namespace BlazorSplit.JsonConverters;
 
 public class NumberOrArrayJsonConverter : JsonConverter<NumberOrArray>
 {
-    public override NumberOrArray Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override NumberOrArray? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         switch (reader.TokenType)
         {
@@ -18,14 +18,14 @@ public class NumberOrArrayJsonConverter : JsonConverter<NumberOrArray>
                 {
                     if (reader.TokenType == JsonTokenType.EndArray)
                         break;
-                    list.Add(JsonSerializer.Deserialize<Number>(ref reader, options));
+                    list.Add(JsonSerializer.Deserialize<Number>(ref reader, options)!);
                 }
 
                 return new NumberOrArray(list);
             default:
                 return new List<Number>
                 {
-                    JsonSerializer.Deserialize<Number>(ref reader, options)
+                    JsonSerializer.Deserialize<Number>(ref reader, options)!
                 };
         }
     }

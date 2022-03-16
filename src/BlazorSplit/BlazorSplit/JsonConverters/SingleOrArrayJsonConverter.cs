@@ -17,7 +17,7 @@ public class SingleOrArrayJsonConverter<TItem> : JsonConverter<SingleOrArray<TIt
         CanWrite = canWrite;
     }
 
-    public override SingleOrArray<TItem> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override SingleOrArray<TItem>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         switch (reader.TokenType)
         {
@@ -29,14 +29,14 @@ public class SingleOrArrayJsonConverter<TItem> : JsonConverter<SingleOrArray<TIt
                 {
                     if (reader.TokenType == JsonTokenType.EndArray)
                         break;
-                    list.Add(JsonSerializer.Deserialize<TItem>(ref reader, options));
+                    list.Add(JsonSerializer.Deserialize<TItem>(ref reader, options)!);
                 }
 
                 return new SingleOrArray<TItem>(list);
             default:
                 return new List<TItem>
                 {
-                    JsonSerializer.Deserialize<TItem>(ref reader, options)
+                    JsonSerializer.Deserialize<TItem>(ref reader, options)!
                 };
         }
     }

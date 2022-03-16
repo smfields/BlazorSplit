@@ -22,7 +22,7 @@ public class SplitInstance : IAsyncDisposable
         {
             await Destroy();
         }
-        catch (JSDisconnectedException e)
+        catch (JSDisconnectedException)
         {
             // Silently ignore since we don't need to dispose if we've been disconnected
         }

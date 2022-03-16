@@ -26,8 +26,8 @@
 
 @code {
 
-    [Parameter]
-    public PreviewConfiguration Configuration { get; set; }
+    [Parameter, EditorRequired]
+    public PreviewConfiguration Configuration { get; set; } = null!;
 
     protected override void OnInitialized()
     {

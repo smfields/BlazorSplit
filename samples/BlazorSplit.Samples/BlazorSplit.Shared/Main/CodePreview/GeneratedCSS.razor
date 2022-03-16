@@ -5,8 +5,9 @@
 <CodeBlock Title="CSS" Language="css">@GenerateCode()</CodeBlock>
 
 @code {
+
     [Parameter, EditorRequired]
-    public PreviewConfiguration Configuration { get; set; }
+    public PreviewConfiguration Configuration { get; set; } = null!;
     
     protected override void OnInitialized()
     {

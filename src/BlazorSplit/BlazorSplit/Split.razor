@@ -11,7 +11,7 @@
 @code {
 
     [Parameter, EditorRequired]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment ChildContent { get; set; } = null!;
 
     /// <summary>
     /// Initial sizes of each element in percents or CSS values.
@@ -81,7 +81,7 @@
     public string? Style { get; set; }
 
     [Inject]
-    public SplitInterop SplitInterop { get; set; }
+    public SplitInterop SplitInterop { get; set; } = null!;
 
     private readonly List<ElementReference> _splitSections = new();
 

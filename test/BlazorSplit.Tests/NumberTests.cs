@@ -10,7 +10,7 @@ public class NumberTests
 {
     private class TestNumberContainer
     {
-        public Number Number { get; set; }
+        public Number Number { get; set; } = null!;
     }
 
     [Test]
