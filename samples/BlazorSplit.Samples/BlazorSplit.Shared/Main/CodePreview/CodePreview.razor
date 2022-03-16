@@ -8,8 +8,8 @@
 </section>
 
 @code {
-    
-    [Parameter]
-    public PreviewConfiguration Configuration { get; set; }
+
+    [Parameter, EditorRequired]
+    public PreviewConfiguration Configuration { get; set; } = null!;
 
 }

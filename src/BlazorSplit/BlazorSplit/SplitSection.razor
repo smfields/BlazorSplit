@@ -5,11 +5,12 @@
 </div>
 
 @code {
-    [Parameter, EditorRequired]
-    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
     
     [CascadingParameter] 
-    public Split Parent { get; set; }
+    public Split Parent { get; set; } = null!;
 
     private ElementReference _element;
 
