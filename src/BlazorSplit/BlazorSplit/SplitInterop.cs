@@ -5,25 +5,23 @@ using Microsoft.JSInterop;
 
 namespace BlazorSplit;
 
-public class SplitInterop
+public class SplitInterop : IAsyncDisposable
 {
-    private readonly Lazy<Task> _importTask;
-    private readonly IJSRuntime _jsRuntime;
+    private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
 
     public SplitInterop(IJSRuntime jsRuntime)
     {
-        _jsRuntime = jsRuntime;
-        _importTask = new Lazy<Task>(() => jsRuntime.InvokeVoidAsync(
-            "import", "https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js").AsTask());
+        _moduleTask = new Lazy<Task<IJSObjectReference>>(() => jsRuntime.InvokeAsync<IJSObjectReference>(
+            "import", "./_content/smfields.BlazorSplit/split-interop.js").AsTask());
     }
 
     public async Task<SplitInstance> CreateInstance(List<ElementReference> elementReferences, SplitOptions? options = null)
     {
-        await _importTask.Value;
+        IJSObjectReference module = await _moduleTask.Value;
 
         IJSObjectReference instanceReference;
         if (options == null)
-            instanceReference = await _jsRuntime.InvokeAsync<IJSObjectReference>("Split", elementReferences);
+            instanceReference = await module.InvokeAsync<IJSObjectReference>("createInstance", elementReferences);
         else
         {
             // Custom serialization to ensure we send null values as undefined and not null
@@ -31,9 +29,18 @@ public class SplitInterop
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             });
-            instanceReference = await _jsRuntime.InvokeAsync<IJSObjectReference>("Split", elementReferences, optionsJson);
+            instanceReference = await module.InvokeAsync<IJSObjectReference>("createInstance", elementReferences, optionsJson);
         }
 
         return new SplitInstance(instanceReference);
+    }
+    
+    public async ValueTask DisposeAsync()
+    {
+        if (_moduleTask.IsValueCreated)
+        {
+            IJSObjectReference module = await _moduleTask.Value;
+            await module.DisposeAsync();
+        }
     }
 }
