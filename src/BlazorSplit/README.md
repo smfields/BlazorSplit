@@ -23,7 +23,7 @@ View the base library documentation [here](https://github.com/nathancahill/split
 
 [![NuGet](https://img.shields.io/nuget/v/smfields.BlazorSplit)](https://www.nuget.org/packages/smfields.BlazorSplit/)
 ```bash
-dotnet add package BlazorIntersectionObserver --version 3.1.0
+dotnet add package smfields.BlazorSplit
 ```
 
 In your `Program.cs` or `Startup.cs` use the following to register the required services:
